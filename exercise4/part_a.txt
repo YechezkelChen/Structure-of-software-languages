@@ -1,0 +1,129 @@
+<div class="notebook">
+
+<div class="nb-cell program" name="p1">
+male(yosef).
+male(yaakov).
+male(haim).
+male(meir).
+male(oren).
+male(shlomi).
+male(naor).
+male(daniel).
+male(itamar).
+male(golan).
+male(yonatan).
+male(roi).
+male(noam).
+
+female(sara).
+female(dina).
+female(ronit).
+female(ortal).
+female(hava).
+female(meshi).
+female(dikla).
+female(michal).
+female(efrat).
+female(ofir).
+female(talya).
+female(tamar).
+female(tal).
+female(adi).
+
+% הבן תמיד בצד שמאל
+married(yaakov, dina).
+married(yosef, sara).
+married(haim, ronit).
+married(oren, dikla).
+married(shlomi, hava).
+married(naor, meshi).
+married(meir, ortal).
+married(roi,michal).
+married(golan,tal).
+
+parent(yaakov,meir).
+parent(yaakov,haim).
+parent(yaakov,meshi).
+parent(dina,meir).
+parent(dina,haim).
+parent(dina,meshi).
+parent(yosef,ronit).
+parent(yosef,oren).
+parent(yosef,hava).
+parent(sara,ronit).
+parent(sara,oren).
+parent(sara,hava).
+parent(haim,daniel).
+parent(haim,itamar).
+parent(haim,michal).
+parent(haim,efrat).
+parent(ronit,daniel).
+parent(ronit,itamar).
+parent(ronit,michal).
+parent(ronit,efrat).
+parent(oren,golan).
+parent(oren,tamar).
+parent(dikla,golan).
+parent(dikla,tamar).
+parent(meir,ofir).
+parent(ortal,ofir).
+parent(shlomi,talya).
+parent(shlomi,yonatan).
+parent(hava,talya).
+parent(hava,yonatan).
+parent(roi,noam).
+parent(michal,noam).
+parent(golan,adi).
+parent(tal,adi).
+
+% אבא
+father(X, Y) :- male(X), parent(X, Y).
+
+% אמא
+mother(X, Y) :- female(X), parent(X, Y).
+
+% בן
+son(X, Y) :- male(X), parent(Y, X).
+
+% בת
+daughter(X, Y) :- female(X), parent(Y, X).
+
+% סבא
+grandfather(X, Y) :- male(X), parent(X, Z), parent(Z, Y).
+
+% סבתא
+grandmother(X, Y) :- female(X), parent(X, Z), parent(Z, Y).
+
+% נכד
+grandson(X, Y) :- male(X), parent(Y, Z), parent(Z, X).
+
+% נכדה
+granddaughter(X, Y) :- female(X), parent(Y, Z), parent(Z, X).
+
+% אחים/אחיות
+sibling(X, Y) :- male(Z), parent(Z, X), parent(Z, Y), X \= Y.
+
+% דוד שאין בינו לביני קשר- דם
+non_blood_uncle(X, Y) :- married(X,Z), parent(W, Y), sibling(Z, W).
+
+% בן-דודה
+cousin(X, Y) :- male(X), female(Z), parent(Z, X), parent(W, Y), sibling(Z, W).
+
+% גיס
+brother_in_law(X, Y) :- married(X, Z), sibling(Z, Y).
+
+% אחיינית
+niece(X, Y) :- female(X), sibling(Y,Z),parent(Z,X).
+
+% בני דודים מדרגה 2
+second_degree_cousin(X, Y) :- parent(Z,X), parent(W,Y), parent(V,Z), parent(U,W), sibling(V,U).
+
+
+
+</div>
+
+<div class="nb-cell markdown" name="md1">
+
+</div>
+
+</div>

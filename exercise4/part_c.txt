@@ -1,0 +1,38 @@
+<div class="notebook">
+
+<div class="nb-cell program" name="p1">
+scum(1, 1).
+scum(N, Res) :- N &gt; 1, N1 is N - 1, scum(N1, SubRes),
+    Res is SubRes + N.
+
+sumDigits(0, 0).
+sumDigits(Num, Sum) :- Num &gt; 0, LastDigit is Num mod 10,
+    Rest is Num // 10, sumDigits(Rest, RestSum),
+    Sum is RestSum + LastDigit.
+
+
+split(0, []).
+split(N, Res) :- N &gt; 0, H is N mod 10, Rest is N // 10,
+    split(Rest, T), append(T, [H], Res).
+
+create(Number, [Digit]) :-
+    Number is Digit.
+create(Number, [H|T]) :- create(SubNumber, T),
+    placeDigit(H, SubNumber, Number).
+placeDigit(Digit, Number, Result) :- Result is Number * 10 + Digit.
+
+reverseDigits(Number, ReversedNumber) :- split(Number, Digits),
+    create(ReversedNumber,Digits).
+
+
+intersection([], _, []).
+intersection([H|T], L2, [H|Z]) :- member(H, L2), intersection(T, L2, Z).
+intersection([_|T], L2, Z) :- intersection(T, L2, Z).
+
+minus([], _, []).
+minus([H|T], L2, Z) :- member(H, L2), minus(T, L2, Z).
+minus([H|T], L2, [H|Z]) :- \+ member(H, L2), minus(T, L2, Z).
+
+</div>
+
+</div>

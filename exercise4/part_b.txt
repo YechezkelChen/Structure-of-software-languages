@@ -1,0 +1,21 @@
+<div class="notebook">
+
+<div class="nb-cell program" name="p1">
+reverse([], []).
+reverse([H|T], Z) :- reverse(T, R), append(R, [H], Z).
+
+member(X, [X|_]).
+member(X, [_|T]) :- member(X, T).
+
+palindrome(L) :- reverse(L, L).
+
+sorted([]).
+sorted([_]).
+sorted([X,Y|T]) :- X =&lt; Y, sorted([Y|T]).
+
+permutation([], []).
+permutation(L, [H|T]) :- select(H, L, R), permutation(R, T).
+
+</div>
+
+</div>
